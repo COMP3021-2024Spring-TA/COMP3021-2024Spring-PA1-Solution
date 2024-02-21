@@ -76,7 +76,7 @@ Based on the AST grammar, there are three basic classes in PA1: `Mod`, `Stmt`, a
 
  You should set both of them to be private and implement the methods to get or set their values.
 
-The ASTs being managed are obtained by parsing files. Therefore, you should first implement a proper constructor for that takes a string as input.  You may need to define more methods according to your needs during the development.
+The ASTs being managed are obtained by parsing files. Therefore, you should first implement a proper constructor that takes a string as input.  You may need to define more methods according to your needs during the development.
 
 #### Mod Subclasses
 
