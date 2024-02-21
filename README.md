@@ -9,9 +9,9 @@
  In PA1, **ASTManager** should support the following functionalities:
 
 - Task 1: Parse the XML files that organize the tree structure of Python ASTs (40%)
-- Task 2: Simple query on basic information of given ASTs (5 * 8% = 40%)
-- Task 3: Sort all functions based on their lines of code (LoC) (20%)
-- Bonus Task: Recover the Python code from its AST (15%)
+- Task 2: Simple query on basic information of given ASTs (5 * 10% = 50%)
+- Task 3: Sort all functions based on their lines of code (LoC) (10%)
+- Bonus Task: Recover the Python code from its AST (10%)
 
 Each test case is an XML file that represents a Python AST. We provide public test cases for you to verify the correctness of your implementations. However, passing all the public test cases does not mean that you can obtain the full mark for the PA. We will also provide many additional test cases as the hidden ones, which are different from the ones we provided in the skeleton.
 
@@ -255,11 +255,11 @@ Please follow the comments on the methods to be implemented in the provided skel
 
 ### Submission Policy
 
-Please submit your code on Canvas before deadline **xxx, 23: 59: 59.** You should submit a single text file specified as follows:
+Please submit your code on Canvas before the deadline **March 23, 2024, 23:59:59.** You should submit a single text file specified as follows:
 
 - A file named `<itsc-id>.txt` containing the URL of your private repository at the first line. We will ask you to add the TAs' accounts as collaborators near the deadline.
 
-For example, a student CHAN, Tai Man with ITSC ID `tmchanaa` having a repository at `https://github.com/tai-man-chan/COMP3021-PA3` should submit a file named `tmchanaa.txt` with the following content:
+For example, a student CHAN, Tai Man with ITSC ID `tmchanaa` having a repository at `https://github.com/tai-man-chan/COMP3021-PA1` should submit a file named `tmchanaa.txt` with the following content:
 
 ```txt
 https://github.com/tai-man-chan/COMP3021-PA1
@@ -286,3 +286,7 @@ We trust that you are familiar with the Honor Code of HKUST. If not, refer to [t
 ### Contact US
 
 If you have any questions on the PA1, please email TA Wei Chen via wei.chen@connect.ust.hk
+
+---
+
+Last Update: Feb 24, 2024
