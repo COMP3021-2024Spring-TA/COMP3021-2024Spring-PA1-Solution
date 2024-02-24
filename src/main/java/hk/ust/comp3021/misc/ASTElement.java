@@ -1,7 +1,7 @@
 package hk.ust.comp3021.misc;
 
-import java.util.*;
 import hk.ust.comp3021.utils.*;
+import java.util.*;
 
 public abstract class ASTElement {
     private int lineno;

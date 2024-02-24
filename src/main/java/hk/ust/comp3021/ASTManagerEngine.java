@@ -1,9 +1,9 @@
 package hk.ust.comp3021;
 
-import java.io.*;
-import java.util.*;
 import hk.ust.comp3021.stmt.*;
 import hk.ust.comp3021.utils.*;
+import java.io.*;
+import java.util.*;
 
 public class ASTManagerEngine {
     private final String defaultXMLFileDir;
