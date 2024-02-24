@@ -21,27 +21,27 @@ public class XMLNode {
     public Map<String, String> getAttributes() {
         return attributes;
     }
-    
-    public boolean hasAttribute(String attributeName) {	
-    	return attributes.containsKey(attributeName);
+
+    public boolean hasAttribute(String attributeName) {
+        return attributes.containsKey(attributeName);
     }
-    
+
     public String getAttribute(String attributeName) {
-    	return attributes.get(attributeName);
+        return attributes.get(attributeName);
     }
 
     public List<XMLNode> getChildren() {
         return children;
     }
-    
+
     public XMLNode getChildByIdx(int idx) {
-    	return children.get(idx);
+        return children.get(idx);
     }
-    
+
     public int getNumChildren() {
-    	return children.size();
+        return children.size();
     }
-    
+
     public void addChild(XMLNode child) {
         children.add(child);
         child.setParent(this);

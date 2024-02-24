@@ -7,46 +7,46 @@ import java.util.*;
 
 
 public class BoolOpExpr extends ASTExpr {
-	// BoolOp(boolop op, expr* values)
-	private ASTEnumOp op;
-	private ArrayList<ASTExpr> values = new ArrayList<>();
+    // BoolOp(boolop op, expr* values)
+    private ASTEnumOp op;
+    private ArrayList<ASTExpr> values = new ArrayList<>();
 
-	public BoolOpExpr(XMLNode node) {
-		super(node);
-		this.exprType = ASTExpr.ExprType.BoolOp;
-		this.op = new ASTEnumOp(node.getChildByIdx(0));
-		for (XMLNode valueNode : node.getChildByIdx(1).getChildren()) {
-			this.values.add(ASTExpr.createASTExpr(valueNode));
-		}
-	}
+    public BoolOpExpr(XMLNode node) {
+        super(node);
+        this.exprType = ASTExpr.ExprType.BoolOp;
+        this.op = new ASTEnumOp(node.getChildByIdx(0));
+        for (XMLNode valueNode : node.getChildByIdx(1).getChildren()) {
+            this.values.add(ASTExpr.createASTExpr(valueNode));
+        }
+    }
 
-	public ASTEnumOp getOp() {
-		return op;
-	}
+    public ASTEnumOp getOp() {
+        return op;
+    }
 
-	@Override
-	public ArrayList<ASTElement> getChildren() {
-		ArrayList<ASTElement> children = new ArrayList<>();
-		children.addAll(values);
-		return children;
-	}
+    @Override
+    public ArrayList<ASTElement> getChildren() {
+        ArrayList<ASTElement> children = new ArrayList<>();
+        children.addAll(values);
+        return children;
+    }
 
-	@Override
-	public int countChildren() {
-		int numChild = 1;
-		for (ASTElement value : values) {
-			numChild += value.countChildren();
-		}
-		return numChild;
-	}
+    @Override
+    public int countChildren() {
+        int numChild = 1;
+        for (ASTElement value : values) {
+            numChild += value.countChildren();
+        }
+        return numChild;
+    }
 
-	@Override
-	public void printByPos(StringBuilder str) {
-		this.fillStartBlanks(str);
-		this.op.printByPos(str);
-		for (ASTExpr value : values) {
-			value.printByPos(str);
-		}
-		this.fillEndBlanks(str);
-	}
+    @Override
+    public void printByPos(StringBuilder str) {
+        this.fillStartBlanks(str);
+        this.op.printByPos(str);
+        for (ASTExpr value : values) {
+            value.printByPos(str);
+        }
+        this.fillEndBlanks(str);
+    }
 }
