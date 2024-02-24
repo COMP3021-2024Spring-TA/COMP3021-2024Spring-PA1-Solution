@@ -1,29 +1,23 @@
 package hk.ust.comp3021.stmt;
 
-import java.util.*;
-import hk.ust.comp3021.utils.*;
 import hk.ust.comp3021.expr.*;
 import hk.ust.comp3021.misc.*;
+import hk.ust.comp3021.utils.*;
+import java.util.*;
 
 public class ClassDefStmt extends ASTStmt {
-
 	/*
-	 * ClassDef(identifier name, 
-	 * 			expr* bases, 
-	 * 			keyword* keywords, 
-	 * 			stmt* body, 
-	 * 			expr* decorator_list, 
+	 * ClassDef(identifier name,
+	 * 			expr* bases,
+	 * 			keyword* keywords,
+	 * 			stmt* body,
+	 * 			expr* decorator_list,
 	 * 			type_param* type_params)
 	 */
-
 	private String name;
-
 	private ArrayList<ASTExpr> bases = new ArrayList<>();
-
 	private ArrayList<ASTKeyWord> keywords = new ArrayList<>();
-
 	private ArrayList<ASTStmt> body = new ArrayList<>();
-
 	private ArrayList<ASTExpr> decorator_list = new ArrayList<>();
 
 	public ClassDefStmt(XMLNode node) {
@@ -49,16 +43,71 @@ public class ClassDefStmt extends ASTStmt {
 		}
 	}
 
+	@Override
+	public ArrayList<ASTElement> getChildren() {
+		ArrayList<ASTElement> children = new ArrayList<>();
+		children.addAll(bases);
+		children.addAll(keywords);
+		children.addAll(body);
+		children.addAll(decorator_list);
 
-	/**
-	 * Attention: You may need to define more methods to update or access the field
-	 * of the class `FunctionDefStmt` Feel free to define more method but remember
-	 * not (1) removing the fields or methods in our skeleton. (2) changing the type
-	 * signature of `public` methods (3) changing the modifiers of the fields and
-	 * methods, e.g., changing a modifier from "private" to "public"
-	 */
-	public void yourMethod() {
+		return children;
+	}
 
+	@Override
+	public int countChildren() {
+		int numChild = 1;
+		for (ASTExpr base : bases) {
+			numChild += base.countChildren();
+		}
+		for (ASTKeyWord keyword : keywords) {
+			numChild += keyword.countChildren();
+		}
+		for (ASTStmt bodyStmt : body) {
+			numChild += bodyStmt.countChildren();
+		}
+		for (ASTExpr list : decorator_list) {
+			numChild += list.countChildren();
+		}
+		return numChild;
+	}
+
+	@Override
+	public void printByPos(StringBuilder str) {
+		this.fillStartBlanks(str);
+		for (ASTExpr list : decorator_list) {
+			str.append('@');
+			list.printByPos(str);
+		}
+		str.append("class ").append(this.name);
+
+		if (!bases.isEmpty() || !keywords.isEmpty()) {
+			str.append("(");
+			boolean comma = false;
+
+			for (ASTExpr base : bases) {
+				if (comma) {
+					str.append(",");
+				} else {
+					comma = true;
+				}
+				base.printByPos(str);
+			}
+			for (ASTKeyWord keyword : keywords) {
+				if (comma) {
+					str.append(",");
+				} else {
+					comma = true;
+				}
+				keyword.printByPos(str);
+			}
+
+		}
+		str.append(":");
+		for (ASTStmt bodyStmt : body) {
+			bodyStmt.printByPos(str);
+		}
+		this.fillEndBlanks(str);
 	}
 
 }

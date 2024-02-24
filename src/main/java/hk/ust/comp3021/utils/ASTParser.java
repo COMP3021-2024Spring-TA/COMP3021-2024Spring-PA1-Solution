@@ -2,12 +2,13 @@ package hk.ust.comp3021.utils;
 
 import java.io.*;
 import java.util.*;
-import hk.ust.comp3021.stmt.*;
 
 
 public class ASTParser {
 
 	private final String xmlFilePath;
+	
+	private final String xmlFileID;
 
 	private boolean isErr;
 
@@ -15,8 +16,9 @@ public class ASTParser {
 
 	private ASTModule rootASTModule;
 	
-	public ASTParser(String xmlFilePath) {
+	public ASTParser(String xmlFilePath, String xmlFileID) {
 		this.xmlFilePath = xmlFilePath;
+		this.xmlFileID = xmlFileID;
 		this.isErr = false;
 		this.rootXMLNode = null;
 		this.rootASTModule = null;
@@ -39,7 +41,8 @@ public class ASTParser {
 	
 	public void parse() {
 		parse2XMLNode();
-		rootASTModule = new ASTModule(rootXMLNode, xmlFilePath);
+		rootXMLNode = rootXMLNode.getChildByIdx(0);
+		rootASTModule = new ASTModule(rootXMLNode, xmlFilePath, xmlFileID);
 	}
 
 	
@@ -86,6 +89,7 @@ public class ASTParser {
 					}
 				}
 			}
+//			printTree(rootXMLNode, 0);
 			reader.close();
 
 		} catch (IOException e) {
@@ -98,7 +102,12 @@ public class ASTParser {
 		int startIndex = line.indexOf("<") + 1;
 		int endIndex = line.indexOf(" ", startIndex);
 		if (endIndex == -1) {
-			endIndex = line.indexOf(">", startIndex);
+			int endIndex1 = line.indexOf("/>", startIndex);
+			if (endIndex1 == -1) {
+				endIndex = line.indexOf(">", startIndex);
+			} else {
+				endIndex = line.indexOf("/>", startIndex);
+			}
 		}
 		return line.substring(startIndex, endIndex);
 	}
@@ -106,6 +115,9 @@ public class ASTParser {
 	private static void parseAttributes(String line, XMLNode node) {
 		int startIndex = line.indexOf("<" + node.getTagName()) + node.getTagName().length() + 1;
 		int endIndex = line.indexOf(">");
+		if (line.contains("/>")) {
+			endIndex = line.indexOf("/>");
+		}
 		String attributesString = line.substring(startIndex, endIndex);
 		String[] attributePairs = attributesString.split(" ");
 		for (String attributePair : attributePairs) {

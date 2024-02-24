@@ -1,19 +1,14 @@
 package hk.ust.comp3021.expr;
 
-import java.util.ArrayList;
+import hk.ust.comp3021.misc.*;
+import hk.ust.comp3021.utils.*;
+import java.util.*;
 
-import hk.ust.comp3021.misc.ASTElement;
-import hk.ust.comp3021.misc.ASTEnumOp;
-import hk.ust.comp3021.utils.XMLNode;
 
 public class ListExpr extends ASTExpr {
-
 	// List(expr* elts, expr_context ctx)
-	
 	private ArrayList<ASTExpr> elts = new ArrayList<>();
-	
-	private ASTEnumOp.ExprContext ctx;
-	
+	private ASTEnumOp ctx;
 	public ListExpr(XMLNode node) {
 		super(node);
 		this.exprType = ASTExpr.ExprType.List;
@@ -22,9 +17,28 @@ public class ListExpr extends ASTExpr {
 			this.elts.add(ASTExpr.createASTExpr(eltNode));
 		}
 		
-		this.ctx = ASTEnumOp.parseExprContext(node.getChildByIdx(1));
+		this.ctx = new ASTEnumOp(node.getChildByIdx(1));
 	}
 	
-	
+	@Override
+	public ArrayList<ASTElement> getChildren() {
+		ArrayList<ASTElement> children = new ArrayList<>();
+		children.addAll(elts);
+		return children;
+	}
+
+	@Override
+	public int countChildren() {
+		int numChild = 1;
+		for (ASTExpr elt: elts) {
+			numChild += elt.countChildren();
+		}
+		return numChild;
+	}
+
+	@Override
+	public void printByPos(StringBuilder str) {
+
+	}
 
 }

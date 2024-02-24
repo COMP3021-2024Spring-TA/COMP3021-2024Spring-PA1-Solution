@@ -5,8 +5,8 @@ import hk.ust.comp3021.utils.*;
 
 public abstract class ASTStmt extends ASTElement {
 	enum StmtType {
-		FunctionDef, ClassDef, Return, Delete, Assign, AugAssign, AnnAssign, For, While, If, With, Raise, Try, Import,
-		ImportFrom, Expr, Pass, Break, Continue
+		FunctionDef, ClassDef, Return, Assign, AugAssign, For, While, If,
+		Expr, Break, Continue
 	}
 
 	protected StmtType stmtType;
@@ -21,6 +21,11 @@ public abstract class ASTStmt extends ASTElement {
 
 	}
 
+	@Override
+	public String getNodeType() {
+		return this.stmtType.name();
+	}
+
 	public static ASTStmt createASTStmt(XMLNode node) {
 		switch (node.getTagName()) {
 		case "Assign":
@@ -33,30 +38,14 @@ public abstract class ASTStmt extends ASTElement {
 			return new ClassDefStmt(node);
 		case "Return":
 			return new ReturnStmt(node);
-		case "Delete":
-			return new DeleteStmt(node);
-		case "AnnAssign":
-			return new AnnAssignStmt(node);
 		case "For":
 			return new ForStmt(node);
 		case "While":
 			return new WhileStmt(node);
 		case "If":
-			return new IfStmt(node);
-		case "With":
-			return new WithStmt(node);
-		case "Raise":
-			return new RaiseStmt(node);
-		case "Try":
-			return new TryStmt(node);
-		case "Import":
-			return new ImportStmt(node);
-		case "ImportFrom":
-			return new ImportFromStmt(node);
+			return new IfStmt(node);	
 		case "Expr":
 			return new ExprStmt(node);
-		case "Pass":
-			return new PassStmt(node);
 		case "Break":
 			return new BreakStmt(node);
 		case "Continue":

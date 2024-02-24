@@ -1,68 +1,120 @@
 package hk.ust.comp3021.stmt;
 
-import java.util.*;
-
-import hk.ust.comp3021.utils.*;
 import hk.ust.comp3021.expr.*;
 import hk.ust.comp3021.misc.*;
+import hk.ust.comp3021.utils.*;
+import java.util.*;
+
 
 public class FunctionDefStmt extends ASTStmt {
-
 	/*
 	 * FunctionDef(identifier name, arguments args, stmt* body, expr*
 	 * decorator_list, expr? returns, string? type_comment, type_param* type_params)
 	 */
-
 	private String name;
-
 	private ASTArguments args;
-
 	private ArrayList<ASTStmt> body = new ArrayList<>();
-
 	private ArrayList<ASTExpr> decorator_list = new ArrayList<>();
-
-	private ASTExpr returns;
-
-	private String type_comment;
+	private ASTExpr returns = null;
 
 	public FunctionDefStmt(XMLNode node) {
 		super(node);
-		
+
 		this.stmtType = ASTStmt.StmtType.FunctionDef;
-		
+
 		this.name = node.getAttribute("name");
-
 		this.args = new ASTArguments(node.getChildByIdx(0));
-
 		for (XMLNode bodyNode : node.getChildByIdx(1).getChildren()) {
 			body.add(ASTStmt.createASTStmt(bodyNode));
 		}
-
 		for (XMLNode listNode : node.getChildByIdx(2).getChildren()) {
 			decorator_list.add(ASTExpr.createASTExpr(listNode));
 		}
-
-		if (node.getNumChildren() >= 3) {
+		if (node.getNumChildren() >= 4) {
 			this.returns = ASTExpr.createASTExpr(node.getChildByIdx(3));
 		}
-		
-		if (node.hasAttribute("type_comment")) {
-			this.type_comment = node.getAttribute("type_comment");
+
+	}
+
+
+	public ArrayList<CallExpr> getAllCalledFunc() {
+		ArrayList<CallExpr> calledFuncs = new ArrayList<CallExpr>();
+		ArrayList<ASTElement> processedChild = new ArrayList<ASTElement>();
+
+		processedChild.add(this);
+
+		while (!processedChild.isEmpty()) {
+			ASTElement curChild = processedChild.get(0);
+			processedChild.remove(0);
+			if (curChild instanceof CallExpr) {
+				calledFuncs.add((CallExpr) curChild);
+			}
+			for (ASTElement child : curChild.getChildren()) {
+				processedChild.add(child);
+			}
 		}
+
+		return calledFuncs;
 	}
 
-	public ArrayList<ASTElement> getChildrenNodes() {
-		return null;
+
+	public int getParamNum() {
+		return args.getParamNum();
 	}
 
-	/**
-	 * Attention: You may need to define more methods to update or access the field
-	 * of the class `FunctionDefStmt` Feel free to define more method but remember
-	 * not (1) removing the fields or methods in our skeleton. (2) changing the type
-	 * signature of `public` methods (3) changing the modifiers of the fields and
-	 * methods, e.g., changing a modifier from "private" to "public"
-	 */
-	public void yourMethod() {
-
+	public String getName() {
+		return name;
 	}
+
+	@Override
+	public ArrayList<ASTElement> getChildren() {
+		ArrayList<ASTElement> children = new ArrayList<>();
+		children.add(args);
+		children.addAll(body);
+		children.addAll(decorator_list);
+		if (returns != null) {
+			children.add(returns);
+		}
+		return children;
+	}
+
+	@Override
+	public int countChildren() {
+		int numChild = 1;
+		numChild += args.countChildren();
+		for (ASTStmt bodyStmt : body) {
+			numChild += bodyStmt.countChildren();
+		}
+		for (ASTExpr listExpr : decorator_list) {
+			numChild += listExpr.countChildren();
+		}
+		if (returns != null) {
+			numChild += returns.countChildren();
+		}
+		return numChild;
+	}
+
+	@Override
+	public void printByPos(StringBuilder str) {
+		this.fillStartBlanks(str);
+		for (ASTExpr list : decorator_list) {
+			str.append('@');
+			list.printByPos(str);
+		}
+		str.append("def ").append(this.name).append("(");
+		args.printByPos(str);
+		str.append(")");
+
+		if (returns != null) {
+			str.append(" -> ");
+			returns.printByPos(str);
+		}
+
+		str.append(":");
+		for (ASTStmt bodyStmt : body) {
+			bodyStmt.printByPos(str);
+		}
+		this.fillEndBlanks(str);
+	}
+
 }
