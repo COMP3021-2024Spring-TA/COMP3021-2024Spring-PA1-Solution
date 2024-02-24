@@ -133,13 +133,6 @@ public class ASTEnumOp extends ASTElement {
         }
     }
 
-    public boolean isOperator() {
-        if (this.op == ASTOperator.Ctx_Del || this.op == ASTOperator.Ctx_Load || this.op == ASTOperator.Ctx_Store) {
-            return false;
-        }
-        return true;
-    }
-
     public String getOperatorName() {
         String name = this.op.name();
         if (name.startsWith("OP_")) {
@@ -147,7 +140,6 @@ public class ASTEnumOp extends ASTElement {
         }
         return "";
     }
-
 
     @Override
     public ArrayList<ASTElement> getChildren() {

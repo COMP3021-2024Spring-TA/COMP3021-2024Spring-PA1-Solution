@@ -4,49 +4,40 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
-
 public class BoolOpExpr extends ASTExpr {
     // BoolOp(boolop op, expr* values)
     private ASTEnumOp op;
     private ArrayList<ASTExpr> values = new ArrayList<>();
 
     public BoolOpExpr(XMLNode node) {
+        // TODO: complete the definition of the constructor. Define the class as the subclass of ASTExpr.
         super(node);
-        this.exprType = ASTExpr.ExprType.BoolOp;
-        this.op = new ASTEnumOp(node.getChildByIdx(0));
-        for (XMLNode valueNode : node.getChildByIdx(1).getChildren()) {
-            this.values.add(ASTExpr.createASTExpr(valueNode));
-        }
-    }
-
-    public ASTEnumOp getOp() {
-        return op;
     }
 
     @Override
     public ArrayList<ASTElement> getChildren() {
-        ArrayList<ASTElement> children = new ArrayList<>();
-        children.addAll(values);
-        return children;
+        // TODO: complete the definition of the method `getChildren`
+        return null;
     }
-
     @Override
     public int countChildren() {
-        int numChild = 1;
-        for (ASTElement value : values) {
-            numChild += value.countChildren();
-        }
-        return numChild;
+        // TODO: complete the definition of the method `countChildren`
+        return 0;
     }
 
     @Override
     public void printByPos(StringBuilder str) {
-        this.fillStartBlanks(str);
-        this.op.printByPos(str);
-        for (ASTExpr value : values) {
-            value.printByPos(str);
-        }
-        this.fillEndBlanks(str);
+        // TODO: (Bonus) complete the definition of the method `printByPos`
+    }
+
+    /**
+     * Attention: You may need to define more methods to update or access the field of the class `User`
+     * Feel free to define more method but remember not
+     * (1) removing the fields or methods in our skeleton.
+     * (2) changing the type signature of `public` methods
+     * (3) changing the modifiers of the fields and methods, e.g., changing a modifier from "private" to "public"
+     */
+    public void yourMethod() {
+
     }
 }

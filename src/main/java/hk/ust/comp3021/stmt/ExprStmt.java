@@ -5,11 +5,9 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class ExprStmt extends ASTStmt {
     // Expr(expr value)
     private ASTExpr value;
-
     public ExprStmt(XMLNode node) {
         super(node);
         this.stmtType = ASTStmt.StmtType.Expr;

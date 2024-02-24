@@ -5,11 +5,10 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class FunctionDefStmt extends ASTStmt {
     /*
      * FunctionDef(identifier name, arguments args, stmt* body, expr*
-     * decorator_list, expr? returns, string? type_comment, type_param* type_params)
+     * decorator_list, expr? returns, ..)
      */
     private String name;
     private ASTArguments args;
@@ -18,45 +17,20 @@ public class FunctionDefStmt extends ASTStmt {
     private ASTExpr returns = null;
 
     public FunctionDefStmt(XMLNode node) {
+        // TODO: complete the definition of the constructor. Define the class as the subclass of ASTExpr.
         super(node);
-
-        this.stmtType = ASTStmt.StmtType.FunctionDef;
-
-        this.name = node.getAttribute("name");
-        this.args = new ASTArguments(node.getChildByIdx(0));
-        for (XMLNode bodyNode : node.getChildByIdx(1).getChildren()) {
-            body.add(ASTStmt.createASTStmt(bodyNode));
-        }
-        for (XMLNode listNode : node.getChildByIdx(2).getChildren()) {
-            decoratorList.add(ASTExpr.createASTExpr(listNode));
-        }
-        if (node.getNumChildren() >= 4) {
-            this.returns = ASTExpr.createASTExpr(node.getChildByIdx(3));
-        }
-
     }
 
-
+    /*
+     * Find all AST node whose class type is `CallExpr` shown in the AST
+     * Hints: you need to traverse all the nodes in AST and check its class type.
+     * We have prepared the method `getChildren` for you to ease the traversal.
+     * You may need to remove the `return null` in the skeleton.
+     * */
     public ArrayList<CallExpr> getAllCalledFunc() {
-        ArrayList<CallExpr> calledFuncs = new ArrayList<CallExpr>();
-        ArrayList<ASTElement> processedChild = new ArrayList<ASTElement>();
-
-        processedChild.add(this);
-
-        while (!processedChild.isEmpty()) {
-            ASTElement curChild = processedChild.get(0);
-            processedChild.remove(0);
-            if (curChild instanceof CallExpr) {
-                calledFuncs.add((CallExpr) curChild);
-            }
-            for (ASTElement child : curChild.getChildren()) {
-                processedChild.add(child);
-            }
-        }
-
-        return calledFuncs;
+        // TODO: complete the definition of the method `getAllCalledFunc`
+        return null;
     }
-
 
     public int getParamNum() {
         return args.getParamNum();
@@ -68,53 +42,30 @@ public class FunctionDefStmt extends ASTStmt {
 
     @Override
     public ArrayList<ASTElement> getChildren() {
-        ArrayList<ASTElement> children = new ArrayList<>();
-        children.add(args);
-        children.addAll(body);
-        children.addAll(decoratorList);
-        if (returns != null) {
-            children.add(returns);
-        }
-        return children;
+        // TODO: complete the definition of the method `getChildren`
+        return null;
     }
-
     @Override
     public int countChildren() {
-        int numChild = 1;
-        numChild += args.countChildren();
-        for (ASTStmt bodyStmt : body) {
-            numChild += bodyStmt.countChildren();
-        }
-        for (ASTExpr listExpr : decoratorList) {
-            numChild += listExpr.countChildren();
-        }
-        if (returns != null) {
-            numChild += returns.countChildren();
-        }
-        return numChild;
+        // TODO: complete the definition of the method `countChildren`
+        return 0;
     }
 
     @Override
     public void printByPos(StringBuilder str) {
-        this.fillStartBlanks(str);
-        for (ASTExpr list : decoratorList) {
-            str.append('@');
-            list.printByPos(str);
-        }
-        str.append("def ").append(this.name).append("(");
-        args.printByPos(str);
-        str.append(")");
+        // TODO: (Bonus) complete the definition of the method `printByPos`
+    }
 
-        if (returns != null) {
-            str.append(" -> ");
-            returns.printByPos(str);
-        }
-
-        str.append(":");
-        for (ASTStmt bodyStmt : body) {
-            bodyStmt.printByPos(str);
-        }
-        this.fillEndBlanks(str);
+    /**
+     * Attention: You may need to define more methods to update or access the field
+     * of the class ASTStmt, i.e., getters or setters Feel free to define more
+     * method but remember not
+     * (1) removing the fields or methods in our skeleton.
+     * (2) changing the type signature of `public` methods
+     * (3) changing the modifiers of the fields and methods, e.g., changing a modifier from "private"
+     * to "public"
+     */
+    public void yourMethod() {
     }
 
 }

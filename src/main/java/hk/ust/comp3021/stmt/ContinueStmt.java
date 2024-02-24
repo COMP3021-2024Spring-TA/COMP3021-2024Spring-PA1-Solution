@@ -4,7 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class ContinueStmt extends ASTStmt {
     public ContinueStmt(XMLNode node) {
         super(node);

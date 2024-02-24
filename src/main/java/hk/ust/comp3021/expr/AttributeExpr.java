@@ -4,8 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.XMLNode;
 import java.util.*;
 
-
-
 public class AttributeExpr extends ASTExpr {
     // Attribute(expr value, identifier attr, expr_context ctx)
     private ASTExpr value;
@@ -14,57 +12,34 @@ public class AttributeExpr extends ASTExpr {
 
     public AttributeExpr(XMLNode node) {
         super(node);
-        this.exprType = ASTExpr.ExprType.Attribute;
-        this.value = ASTExpr.createASTExpr(node.getChildByIdx(0));
-        this.attr = node.getAttribute("attr");
-        this.ctx = new ASTEnumOp(node.getChildByIdx(1));
-    }
-
-    public ASTEnumOp getCtx() {
-        return ctx;
-    }
-
-    public void setCtx(ASTEnumOp ctx) {
-        this.ctx = ctx;
-    }
-
-    public ASTExpr getValue() {
-        return value;
-    }
-
-    public void setValue(ASTExpr value) {
-        this.value = value;
-    }
-
-    public void setAttr(String attr) {
-        this.attr = attr;
-    }
-
-    public String getAttr() {
-        return attr;
+        // TODO: complete the definition of the constructor. Define the class as the subclass of ASTExpr.
     }
 
     @Override
     public int countChildren() {
-        int numChild = 1;
-        numChild += value.countChildren();
-        return numChild;
+        // TODO: complete the definition of the method `countChildren`
+        return 0;
     }
 
     @Override
     public ArrayList<ASTElement> getChildren() {
-        ArrayList<ASTElement> children = new ArrayList<>();
-        children.add(value);
-        return children;
+        // TODO: complete the definition of the method `getChildren`
+        return null;
     }
 
     @Override
     public void printByPos(StringBuilder str) {
-        this.fillStartBlanks(str);
-        value.printByPos(str);
-        str.append(".");
-        str.append(attr);
-        this.fillEndBlanks(str);
+        // TODO: (Bonus) complete the definition of the method `printByPos`
     }
 
+    /**
+     * Attention: You may need to define more methods to update or access the field of the class `User`
+     * Feel free to define more method but remember not
+     * (1) removing the fields or methods in our skeleton.
+     * (2) changing the type signature of `public` methods
+     * (3) changing the modifiers of the fields and methods, e.g., changing a modifier from "private" to "public"
+     */
+    public void yourMethod() {
+
+    }
 }

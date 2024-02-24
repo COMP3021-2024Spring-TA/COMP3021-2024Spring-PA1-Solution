@@ -16,17 +16,11 @@ class ASTManagerTest {
     @Test
     void testPaperParser() {
     	ASTManagerEngine engine = new ASTManagerEngine();
-//        assertEquals(engine.getPaperBase().size(), 123);
     }
-
 
     @Tag(TestKind.PUBLIC)
     @Test
     void testUserRegister() {
         ASTManagerEngine engine = new ASTManagerEngine();
-//        assertEquals(engine.getUsers().size(), 1);
-//        String userID = "User_" + engine.getUsers().size();
-//        engine.processUserRegister(userID, "testUser", new Date());
-//        assertEquals(engine.getUsers().size(), 2);
     }
 }

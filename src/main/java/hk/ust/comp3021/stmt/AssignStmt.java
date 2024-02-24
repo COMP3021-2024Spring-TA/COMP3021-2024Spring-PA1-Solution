@@ -5,47 +5,42 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class AssignStmt extends ASTStmt {
-    // Assign(expr* targets, expr value, string? type_comment)
+    // Assign(expr* targets, expr value, ...)
     private ArrayList<ASTExpr> targets = new ArrayList<>();
     private ASTExpr value;
 
     public AssignStmt(XMLNode node) {
+        // TODO: complete the definition of the constructor. Define the class as the subclass of ASTStmt.
         super(node);
-        this.stmtType = ASTStmt.StmtType.Assign;
-        for (XMLNode targetNode : node.getChildByIdx(0).getChildren()) {
-            this.targets.add(ASTExpr.createASTExpr(targetNode));
-        }
-        this.value = ASTExpr.createASTExpr(node.getChildByIdx(1));
     }
 
     @Override
     public ArrayList<ASTElement> getChildren() {
-        ArrayList<ASTElement> children = new ArrayList<>();
-        children.addAll(targets);
-        children.add(value);
-        return children;
+        // TODO: complete the definition of the method `getChildren`
+        return null;
     }
 
     @Override
     public int countChildren() {
-        int numChild = 1;
-        for (ASTExpr target: targets) {
-            numChild += target.countChildren();
-        }
-
-        numChild += value.countChildren();
-        return numChild;
+        // TODO: complete the definition of the method `countChildren`
+        return 0;
     }
     @Override
     public void printByPos(StringBuilder str) {
-        this.fillStartBlanks(str);
-        for (ASTExpr target: targets) {
-            target.printByPos(str);
-            str.append(" = ");
-        }
-        value.printByPos(str);
-        this.fillEndBlanks(str);
+        // TODO: (Bonus) complete the definition of the method `printByPos`
     }
+
+    /**
+     * Attention: You may need to define more methods to update or access the field
+     * of the class ASTStmt, i.e., getters or setters Feel free to define more
+     * method but remember not
+     * (1) removing the fields or methods in our skeleton.
+     * (2) changing the type signature of `public` methods
+     * (3) changing the modifiers of the fields and methods, e.g., changing a modifier from "private"
+     * to "public"
+     */
+    public void yourMethod() {
+    }
+
 }

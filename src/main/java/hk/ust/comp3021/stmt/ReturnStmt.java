@@ -8,7 +8,6 @@ import java.util.*;
 public class ReturnStmt extends ASTStmt {
     // Return(expr? value)
     private ASTExpr value = null;
-
     public ReturnStmt(XMLNode node) {
         super(node);
         this.stmtType = ASTStmt.StmtType.Return;
