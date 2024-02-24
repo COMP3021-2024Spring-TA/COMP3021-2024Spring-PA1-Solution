@@ -29,4 +29,5 @@ hs_err_pid*
 .settings
 *.xml
 *.py
+.idea/
 build

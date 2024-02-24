@@ -214,16 +214,16 @@ public class ASTEnumOp extends ASTElement {
 				str.append("//");
 				break;
 			case OP_Invert:
-				str.append("invert");
+				str.append("~");
 				break;
 			case OP_Not:
 				str.append("not");
 				break;
 			case OP_UAdd:
-				str.append("unary add");
+				str.append("+");
 				break;
 			case OP_USub:
-				str.append("unary subtract");
+				str.append("-");
 				break;
 			case OP_Eq:
 				str.append("==");
