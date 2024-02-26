@@ -5,7 +5,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.stmt.*;
 import hk.ust.comp3021.utils.*;
 import java.io.*;
-import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -18,6 +17,14 @@ public class ASTManagerEngine {
     public ASTManagerEngine() {
         defaultXMLFileDir = "resources/pythonxml/";
         id2ASTModules = new HashMap<>();
+    }
+
+    public String getDefaultXMLFileDir() {
+        return defaultXMLFileDir;
+    }
+
+    public HashMap<String, ASTModule> getId2ASTModules() {
+        return id2ASTModules;
     }
 
     public void userInterface() {
@@ -109,8 +116,7 @@ public class ASTManagerEngine {
      * 0
      */
     public void processXMLParsing(String xmlID) {
-        String xmlFileName = Paths.get(defaultXMLFileDir, "python_" + xmlID + ".xml").toString();
-        ASTParser parser = new ASTParser(xmlFileName, xmlID);
+        ASTParser parser = new ASTParser(xmlID);
         parser.parse();
         if (!parser.isErr()) {
             this.id2ASTModules.put(xmlID, parser.getASTModule());
@@ -196,9 +202,7 @@ public class ASTManagerEngine {
         return op2Num;
     }
 
-    public void userInterfaceCommonOp() {
-        HashMap<String, Integer> op2Num = calculateOp2Nums();
-
+    public String mostCommonUsedOp(HashMap<String, Integer> op2Num) {
         String maxOp = null;
         int maxValue = Integer.MIN_VALUE;
 
@@ -211,9 +215,15 @@ public class ASTManagerEngine {
                 maxValue = curValue;
             }
         }
+        return maxOp;
+    }
+
+    public void userInterfaceCommonOp() {
+        HashMap<String, Integer> op2Num = calculateOp2Nums();
+        String maxOp = mostCommonUsedOp(op2Num);
 
         if (maxOp != null) {
-            System.out.println("Most common operator is " + maxOp + " with frequency " + maxValue);
+            System.out.println("Most common operator is " + maxOp + " with frequency " + op2Num.get(maxOp));
         } else {
             System.out.println("Failed to find most common operator!");
         }

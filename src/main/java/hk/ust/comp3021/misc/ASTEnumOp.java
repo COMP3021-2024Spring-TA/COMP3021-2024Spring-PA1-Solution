@@ -148,6 +148,9 @@ public class ASTEnumOp extends ASTElement {
         return "";
     }
 
+    public ASTOperator getOp() {
+        return op;
+    }
 
     @Override
     public ArrayList<ASTElement> getChildren() {

@@ -1,13 +1,11 @@
 package hk.ust.comp3021.utils;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.*;
 
 
 public class ASTParser {
-
-    private final String xmlFilePath;
-
     private final String xmlFileID;
 
     private boolean isErr;
@@ -16,16 +14,11 @@ public class ASTParser {
 
     private ASTModule rootASTModule;
 
-    public ASTParser(String xmlFilePath, String xmlFileID) {
-        this.xmlFilePath = xmlFilePath;
+    public ASTParser(String xmlFileID) {
         this.xmlFileID = xmlFileID;
         this.isErr = false;
         this.rootXMLNode = null;
         this.rootASTModule = null;
-    }
-
-    public String getXMLFilePath() {
-        return xmlFilePath;
     }
 
     public boolean isErr() {
@@ -36,17 +29,24 @@ public class ASTParser {
         return rootASTModule;
     }
 
+    public XMLNode getRootXMLNode() {
+        return rootXMLNode;
+    }
+
     public void parse() {
         parse2XMLNode();
         rootXMLNode = rootXMLNode.getChildByIdx(0);
-        rootASTModule = new ASTModule(rootXMLNode, xmlFilePath, xmlFileID);
+        rootASTModule = new ASTModule(rootXMLNode, xmlFileID);
     }
 
     public void parse2XMLNode() {
         try {
             String line;
             Stack<XMLNode> nodeStack = new Stack<>();
-            BufferedReader reader = new BufferedReader(new FileReader(xmlFilePath));
+
+            String xmlFileName = Paths.get("resources/pythonxml/", "python_" + xmlFileID + ".xml").toString();
+
+            BufferedReader reader = new BufferedReader(new FileReader(xmlFileName));
 
             while ((line = reader.readLine()) != null) {
                 if (line.contains("<") && line.contains(">")) {

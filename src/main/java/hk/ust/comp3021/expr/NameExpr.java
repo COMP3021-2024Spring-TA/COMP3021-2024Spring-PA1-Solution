@@ -22,6 +22,10 @@ public class NameExpr extends ASTExpr {
         return id;
     }
 
+    public ASTEnumOp getCtx() {
+        return ctx;
+    }
+
     @Override
     public ArrayList<ASTElement> getChildren() {
         ArrayList<ASTElement> children = new ArrayList<>();

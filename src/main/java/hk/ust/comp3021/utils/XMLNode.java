@@ -22,6 +22,10 @@ public class XMLNode {
         return attributes;
     }
 
+    public void setAttribute(String key, String value) {
+        this.attributes.put(key, value);
+    }
+
     public boolean hasAttribute(String attributeName) {
         return attributes.containsKey(attributeName);
     }

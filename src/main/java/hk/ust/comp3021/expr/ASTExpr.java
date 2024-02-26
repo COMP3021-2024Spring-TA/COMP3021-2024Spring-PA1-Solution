@@ -4,7 +4,7 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 
 public abstract class ASTExpr extends ASTElement {
-    enum ExprType {
+    public enum ExprType {
         BoolOp, BinOp, UnaryOp, Compare, Call, Constant, Attribute,
         Subscript, Name, List, Tuple
     }
@@ -18,6 +18,10 @@ public abstract class ASTExpr extends ASTElement {
     @Override
     public String getNodeType() {
         return this.exprType.name();
+    }
+
+    public ExprType getExprType() {
+        return exprType;
     }
 
     public static ASTExpr createASTExpr(XMLNode node) {

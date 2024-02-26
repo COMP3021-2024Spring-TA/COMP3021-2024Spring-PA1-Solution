@@ -12,12 +12,9 @@ import java.util.*;
 public class ASTModule extends ASTElement {
     // Module(stmt* body, ...)
     private ArrayList<ASTStmt> body = new ArrayList<ASTStmt>();
-    private String astFile;
     private String astID;
 
-    public ASTModule(XMLNode node, String astFile, String astID) {
-        this.astFile = astFile;
-
+    public ASTModule(XMLNode node, String astID) {
         this.astID = astID;
 
         for (XMLNode bodyNode : node.getChildByIdx(0).getChildren()) {
@@ -25,16 +22,8 @@ public class ASTModule extends ASTElement {
         }
     }
 
-    public String getAstFile() {
-        return astFile;
-    }
-
     public ArrayList<ASTStmt> getBody() {
         return body;
-    }
-
-    public void setAstFile(String astFile) {
-        this.astFile = astFile;
     }
 
     public void setAstID(String astID) {
