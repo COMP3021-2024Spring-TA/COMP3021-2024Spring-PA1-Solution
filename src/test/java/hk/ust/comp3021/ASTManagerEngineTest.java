@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -123,5 +124,68 @@ public class ASTManagerEngineTest {
         expectedNode2Num.put("If", 1);
         assertEquals(expectedNode2Num, node2Num);
     }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    void testTotCalculateNode2Num() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
+        for (int i = 0; i < xmlFileTot; i++) {
+            engine.processXMLParsing(String.valueOf(i));
+        }
+        HashMap<String, Integer> expectedNode2Num = new HashMap<>();
+
+        HashMap<String, Integer> totNode2Num = new HashMap<>();
+        for (String key : engine.getId2ASTModules().keySet()) {
+            HashMap<String, Integer> node2Num = engine.calculateNode2Nums(key);
+            for (Map.Entry<String, Integer> entry : node2Num.entrySet()) {
+                if (totNode2Num.containsKey(entry.getKey())) {
+                    int currentValue = totNode2Num.get(entry.getKey());
+                    totNode2Num.put(entry.getKey(), currentValue + entry.getValue());
+                } else {
+                    totNode2Num.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+
+        expectedNode2Num.put("Module", 837);
+        expectedNode2Num.put("ClassDef", 647);
+        expectedNode2Num.put("FunctionDef", 1126);
+        expectedNode2Num.put("arguments", 1126);
+
+        expectedNode2Num.put("arg", 2508);
+        expectedNode2Num.put("Name", 22230);
+        expectedNode2Num.put("Assign", 3624);
+        expectedNode2Num.put("Constant", 5627);
+
+        expectedNode2Num.put("While", 431);
+
+        expectedNode2Num.put("BoolOp", 354);
+        expectedNode2Num.put("Compare", 1809);
+        expectedNode2Num.put("Attribute", 3480);
+
+        expectedNode2Num.put("Tuple", 466);
+        expectedNode2Num.put("Return", 1365);
+
+        expectedNode2Num.put("Subscript", 2425);
+
+        expectedNode2Num.put("Call", 3708);
+        expectedNode2Num.put("If", 1505);
+
+        expectedNode2Num.put("AugAssign", 730);
+        expectedNode2Num.put("Break", 87);
+
+        expectedNode2Num.put("Continue", 29);
+
+        expectedNode2Num.put("List", 454);
+        expectedNode2Num.put("keyword", 66);
+
+        expectedNode2Num.put("For", 658);
+        expectedNode2Num.put("BinOp", 1939);
+        expectedNode2Num.put("Expr", 1199);
+        expectedNode2Num.put("UnaryOp", 489);
+        assertEquals(expectedNode2Num, totNode2Num);
+    }
+
 
 }
