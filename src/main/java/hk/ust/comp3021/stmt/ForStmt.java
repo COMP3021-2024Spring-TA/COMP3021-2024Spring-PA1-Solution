@@ -7,13 +7,11 @@ import java.util.ArrayList;
 
 
 public class ForStmt extends ASTStmt {
-
     //  For(expr target, expr iter, stmt* body, stmt* orelse, ...)
     private ASTExpr target;
     private ASTExpr iter;
     private ArrayList<ASTStmt> body = new ArrayList<>();
     private ArrayList<ASTStmt> orelse = new ArrayList<>();
-
     public ForStmt(XMLNode node) {
         super(node);
         this.stmtType = ASTStmt.StmtType.For;

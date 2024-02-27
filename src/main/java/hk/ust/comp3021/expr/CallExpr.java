@@ -4,7 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class CallExpr extends ASTExpr {
     // Call(expr func, expr* args, keyword* keywords)
     private ASTExpr func;
@@ -23,30 +22,12 @@ public class CallExpr extends ASTExpr {
         }
     }
 
-    @Override
-    public ArrayList<ASTElement> getChildren() {
-        ArrayList<ASTElement> children = new ArrayList<>();
-        children.add(func);
-        children.addAll(args);
-        children.addAll(keywords);
-        return children;
-    }
-
-    @Override
-    public int countChildren() {
-        int numChild = 1;
-        numChild += func.countChildren();
-        for (ASTExpr arg: args) {
-            numChild += arg.countChildren();
-        }
-        for (ASTKeyWord keyword: keywords) {
-            numChild += keyword.countChildren();
-        }
-        return numChild;
-    }
-
     /*
-     * Find all paths from node Call to node Name
+     * Find all paths from func node to node with class type Name, which contain several cases
+     * (1) if the path is func -> Attribute (attr: b) -> Name (id: self), then the name is self.b
+     * (2) if the path is func -> Attribute (attr: b) -> Attribute (attr: a) -> Name (id: self), then the name is self.a.b
+     * (3) if the path is func -> Name (id: bubbleSort), then the name is bubbleSort
+     * @return: name of called function
      */
     public String getCalledFuncName() {
         ArrayList<ASTElement> path = null;
@@ -89,6 +70,28 @@ public class CallExpr extends ASTExpr {
             }
         }
         return funcName;
+    }
+
+    @Override
+    public ArrayList<ASTElement> getChildren() {
+        ArrayList<ASTElement> children = new ArrayList<>();
+        children.add(func);
+        children.addAll(args);
+        children.addAll(keywords);
+        return children;
+    }
+
+    @Override
+    public int countChildren() {
+        int numChild = 1;
+        numChild += func.countChildren();
+        for (ASTExpr arg: args) {
+            numChild += arg.countChildren();
+        }
+        for (ASTKeyWord keyword: keywords) {
+            numChild += keyword.countChildren();
+        }
+        return numChild;
     }
 
     @Override

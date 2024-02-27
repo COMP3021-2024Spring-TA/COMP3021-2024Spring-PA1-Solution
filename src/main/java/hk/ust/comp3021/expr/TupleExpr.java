@@ -5,10 +5,10 @@ import hk.ust.comp3021.utils.*;
 import java.util.*;
 
 public class TupleExpr extends ASTExpr {
-
     //  Tuple(expr* elts, expr_context ctx)
     private ArrayList<ASTExpr> elts = new ArrayList<>();
     private ASTEnumOp ctx;
+
     public TupleExpr(XMLNode node) {
         super(node);
         this.exprType = ASTExpr.ExprType.Tuple;
@@ -22,6 +22,7 @@ public class TupleExpr extends ASTExpr {
     public void printByPos(StringBuilder str) {
 
     }
+
     @Override
     public ArrayList<ASTElement> getChildren() {
         ArrayList<ASTElement> children = new ArrayList<>();

@@ -11,12 +11,13 @@ import java.util.*;
 
 public class ASTModule extends ASTElement {
     // Module(stmt* body, ...)
-    private ArrayList<ASTStmt> body = new ArrayList<ASTStmt>();
+    private ArrayList<ASTStmt> body;
     private String astID;
 
     public ASTModule(XMLNode node, String astID) {
         this.astID = astID;
 
+        this.body = new ArrayList<>();
         for (XMLNode bodyNode : node.getChildByIdx(0).getChildren()) {
             this.body.add(ASTStmt.createASTStmt(bodyNode));
         }
@@ -34,6 +35,12 @@ public class ASTModule extends ASTElement {
         this.body = body;
     }
 
+    /*
+    * Find all AST node whose class type is `FunctionDefStmt` shown in the AST
+    * Hints: you need to traverse all the nodes in AST and check its class type.
+    * We have prepared the method `getChildren` for you to ease the traversal.
+    * You may need to remove the `return null` in the skeleton.
+    * */
     public ArrayList<FunctionDefStmt> getAllFunctions() {
         ArrayList<FunctionDefStmt> functionDefs = new ArrayList<FunctionDefStmt>();
         ArrayList<ASTElement> processedChild = new ArrayList<ASTElement>();
@@ -54,6 +61,15 @@ public class ASTModule extends ASTElement {
         return functionDefs;
     }
 
+    /*
+     * Find all operators whose class type is `ASTEnumOp` shown in the AST.
+     * Hints: We have prepared the method `getChildren` for you to ease the traversal.
+     * But ASTEnumOp is not regarded as children node in AST Tree.
+     * To find all operators, you need to first find the nodes whose types are BinOpExpr, BoolOpExpr, etc.
+     * Then, you obtain their operators by accessing field `op`.
+     * Further, Ctx_Store, Ctx_Load and Ctx_Del are not operators as well.
+     * You may need to remove the `return null` in the skeleton.
+     * */
     public ArrayList<ASTEnumOp> getAllOperators() {
         ArrayList<ASTEnumOp> operators = new ArrayList<ASTEnumOp>();
         ArrayList<ASTElement> processedChild = new ArrayList<ASTElement>();
@@ -82,6 +98,11 @@ public class ASTModule extends ASTElement {
         return operators;
     }
 
+    /*
+     * Find all AST node shown in the AST
+     * Hints: you need to traverse all the nodes in AST.
+     * You may need to remove the `return null` in the skeleton.
+     * */
     public ArrayList<ASTElement> getAllNodes() {
         ArrayList<ASTElement> allNodes = new ArrayList<>();
         ArrayList<ASTElement> processedChild = new ArrayList<ASTElement>();
@@ -101,7 +122,6 @@ public class ASTModule extends ASTElement {
         }
         return allNodes;
     }
-
 
     @Override
     public ArrayList<ASTElement> getChildren() {

@@ -5,11 +5,8 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.ArrayList;
 
-
 public class WhileStmt extends ASTStmt {
-
     // While(expr test, stmt* body, stmt* orelse)
-
     private ASTExpr test;
     private ArrayList<ASTStmt> body = new ArrayList<>();
     private ArrayList<ASTStmt> orelse = new ArrayList<>();
@@ -27,7 +24,6 @@ public class WhileStmt extends ASTStmt {
             orelse.add(ASTStmt.createASTStmt(orelseNode));
         }
     }
-
 
     @Override
     public ArrayList<ASTElement> getChildren() {

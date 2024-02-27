@@ -4,8 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
-
 public class BoolOpExpr extends ASTExpr {
     // BoolOp(boolop op, expr* values)
     private ASTEnumOp op;
@@ -30,7 +28,6 @@ public class BoolOpExpr extends ASTExpr {
         children.addAll(values);
         return children;
     }
-
     @Override
     public int countChildren() {
         int numChild = 1;

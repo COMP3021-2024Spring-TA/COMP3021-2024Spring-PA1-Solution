@@ -5,9 +5,8 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class AssignStmt extends ASTStmt {
-    // Assign(expr* targets, expr value, string? type_comment)
+    // Assign(expr* targets, expr value, ...)
     private ArrayList<ASTExpr> targets = new ArrayList<>();
     private ASTExpr value;
 

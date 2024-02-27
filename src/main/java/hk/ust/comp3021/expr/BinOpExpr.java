@@ -4,9 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
-
-
 public class BinOpExpr extends ASTExpr {
     // BinOp(expr left, operator op, expr right)
     private ASTExpr left;

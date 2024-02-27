@@ -18,7 +18,6 @@ public abstract class ASTStmt extends ASTElement {
 
     public ASTStmt(XMLNode node) {
         super(node);
-
     }
 
     @Override
@@ -26,6 +25,14 @@ public abstract class ASTStmt extends ASTElement {
         return this.stmtType.name();
     }
 
+    /**
+     * Create ASTStmt from the XNL Node based on the tag name
+     *
+     * @param node: the XML Node from which to generate ASTStmt
+     * @return: created ASTStmt
+     *
+     * You may need to remove the `return null` from the skeleton.
+     */
     public static ASTStmt createASTStmt(XMLNode node) {
         switch (node.getTagName()) {
         case "Assign":
@@ -54,18 +61,4 @@ public abstract class ASTStmt extends ASTElement {
             return null;
         }
     }
-
-    /**
-     * Attention: You may need to define more methods to update or access the field
-     * of the class ASTStmt, i.e., getters or setters Feel free to define more
-     * method but remember not (1) removing the fields or methods in our skeleton.
-     * (2) changing the type signature of `public` methods (3) changing the
-     * modifiers of the fields and methods, e.g., changing a modifier from "private"
-     * to "public"
-     */
-
-    public void yourMethod() {
-
-    }
-
 }

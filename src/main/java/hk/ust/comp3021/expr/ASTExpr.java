@@ -24,6 +24,15 @@ public abstract class ASTExpr extends ASTElement {
         return exprType;
     }
 
+
+    /**
+     * Create ASTExpr from the XNL Node based on the tag name
+     *
+     * @param node: the XML Node from which to generate ASTExpr
+     * @return: created ASTExpr
+     *
+     * You may need to remove the `return null` from the skeleton.
+     */
     public static ASTExpr createASTExpr(XMLNode node) {
         switch (node.getTagName()) {
         case "BoolOp":
@@ -49,10 +58,8 @@ public abstract class ASTExpr extends ASTElement {
         case "Tuple":
             return new TupleExpr(node);
         default:
-            return null;
-
         }
-
+        return null;
     }
 
 }

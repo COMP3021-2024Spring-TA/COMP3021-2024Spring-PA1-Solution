@@ -5,7 +5,6 @@ import hk.ust.comp3021.utils.*;
 import java.util.*;
 
 public class SubscriptExpr extends ASTExpr {
-
     // Subscript(expr value, expr slice, expr_context ctx)
     private ASTExpr value;
     private ASTExpr slice;

@@ -5,11 +5,10 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.*;
 
-
 public class FunctionDefStmt extends ASTStmt {
     /*
      * FunctionDef(identifier name, arguments args, stmt* body, expr*
-     * decorator_list, expr? returns, string? type_comment, type_param* type_params)
+     * decorator_list, expr? returns, ...)
      */
     private String name;
     private ASTArguments args;

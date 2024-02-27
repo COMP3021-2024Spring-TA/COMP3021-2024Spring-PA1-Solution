@@ -5,14 +5,13 @@ import hk.ust.comp3021.utils.*;
 import java.util.*;
 
 public class ASTArguments extends ASTElement {
-
     public class ASTArg extends ASTElement {
         /*
-         * arg = (identifier arg, expr? annotation, string? type_comment) attributes
-         * (int lineno, int colOffset, int? endLineno, int? endColOffset)
+         * arg = (identifier arg, expr? annotation, ...)
+         *       attributes (int lineno, int colOffset, int? endLineno, int? endColOffset)
          */
         private String arg;
-        private ASTExpr annotation = null;
+        private ASTExpr annotation;
 
         public ASTArg(XMLNode node) {
             super(node);
@@ -58,8 +57,7 @@ public class ASTArguments extends ASTElement {
         }
     }
     /*
-     * arguments = (arg* posonlyargs, arg* args, arg? vararg, arg* kwonlyargs, expr*
-     * kw_defaults, arg? kwarg, expr* defaults)
+     * arguments = (.., arg* args, ..., expr* defaults)
      */
 
     private ArrayList<ASTArg> args = new ArrayList<>();
@@ -102,6 +100,9 @@ public class ASTArguments extends ASTElement {
         }
     }
 
+    /*
+    * Return the number of ASTArg child nodes
+    */
     public int getParamNum() {
         int paramNum = 0;
         paramNum += this.args.size();

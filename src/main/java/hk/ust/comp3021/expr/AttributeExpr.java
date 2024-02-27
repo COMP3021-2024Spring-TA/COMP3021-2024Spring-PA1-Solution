@@ -4,8 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.XMLNode;
 import java.util.*;
 
-
-
 public class AttributeExpr extends ASTExpr {
     // Attribute(expr value, identifier attr, expr_context ctx)
     private ASTExpr value;

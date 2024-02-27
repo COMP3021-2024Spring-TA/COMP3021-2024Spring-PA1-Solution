@@ -28,18 +28,17 @@ public class UnaryOpExpr extends ASTExpr {
     }
 
     @Override
-    public void printByPos(StringBuilder str) {
-        this.fillStartBlanks(str);
-        op.printByPos(str);
-        operand.printByPos(str);
-        this.fillEndBlanks(str);
-    }
-
-    @Override
     public int countChildren() {
         int numChild = 1;
         numChild += operand.countChildren();
         return numChild;
     }
 
+    @Override
+    public void printByPos(StringBuilder str) {
+        this.fillStartBlanks(str);
+        op.printByPos(str);
+        operand.printByPos(str);
+        this.fillEndBlanks(str);
+    }
 }

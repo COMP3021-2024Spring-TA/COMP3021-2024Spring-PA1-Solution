@@ -5,8 +5,7 @@ import hk.ust.comp3021.utils.TestKind;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -188,4 +187,17 @@ public class ASTManagerEngineTest {
     }
 
 
+    @Tag(TestKind.PUBLIC)
+    @Test
+    void testCalledFunc() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
+        engine.processXMLParsing("0");
+
+        HashMap<String, Set<String>> func2CalledFuncs = engine.calculateCalledFunc();
+        HashMap<String, Set<String>> expectedMap = new HashMap<>();
+
+        assertEquals(func2CalledFuncs, expectedMap);
+
+    }
 }

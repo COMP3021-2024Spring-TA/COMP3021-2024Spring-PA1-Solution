@@ -4,8 +4,6 @@ import hk.ust.comp3021.misc.*;
 import hk.ust.comp3021.utils.*;
 import java.util.ArrayList;
 
-
-
 public class ConstantExpr extends ASTExpr {
     // Constant(constant value, string? kind)
     private String value;

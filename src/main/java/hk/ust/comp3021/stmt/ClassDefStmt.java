@@ -8,11 +8,10 @@ import java.util.*;
 public class ClassDefStmt extends ASTStmt {
     /*
      * ClassDef(identifier name,
-     *             expr* bases,
-     *             keyword* keywords,
-     *             stmt* body,
-     *             expr* decorator_list,
-     *             type_param* type_params)
+     *         expr* bases,
+     *         keyword* keywords,
+     *         stmt* body,
+     *         expr* decorator_list,...)
      */
     private String name;
     private ArrayList<ASTExpr> bases = new ArrayList<>();
