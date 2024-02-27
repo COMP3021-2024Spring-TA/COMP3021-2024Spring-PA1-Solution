@@ -5,6 +5,8 @@ import hk.ust.comp3021.utils.TestKind;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +30,29 @@ public class ASTManagerEngineTest {
         parser.parse();
         assertNotNull(parser.getASTModule());
         assertFalse(parser.isErr());
+    }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    public void testPrintedInformation() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        engine.processXMLParsing(String.valueOf(227));
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        PrintStream originalPrintStream = System.out;
+        System.setOut(printStream);
+
+        engine.findFuncWithArgGtN(4);
+        System.setOut(originalPrintStream);
+        String printedOutput = outputStream.toString();
+
+        // the function name should be astID_FuncName_UniqueID
+        Set<String> expectedOutput = Set.of(
+                "227_diagonalBinarySearch_2",
+                "227_rowBinarySearch_13",
+                "227_colBinarySearch_27");
+        assertEquals(expectedOutput, Set.of(printedOutput.trim().split("\n")));
     }
 
     @Tag(TestKind.PUBLIC)
@@ -189,15 +214,85 @@ public class ASTManagerEngineTest {
 
     @Tag(TestKind.PUBLIC)
     @Test
-    void testCalledFunc() {
+    void testCalledFuncOnXML1() {
         ASTManagerEngine engine = new ASTManagerEngine();
-        int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
         engine.processXMLParsing("0");
 
         HashMap<String, Set<String>> func2CalledFuncs = engine.calculateCalledFunc();
         HashMap<String, Set<String>> expectedMap = new HashMap<>();
-
+        
+        expectedMap.put("0_sortList_19", Set.of("0_self.bubbleSort_20"));
+        expectedMap.put("0_bubbleSort_2", new HashSet<>());
         assertEquals(func2CalledFuncs, expectedMap);
+    }
 
+    @Tag(TestKind.PUBLIC)
+    @Test
+    void testCalledFuncOnXML26() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        engine.processXMLParsing("26");
+
+        HashMap<String, Set<String>> func2CalledFuncs = engine.calculateCalledFunc();
+        HashMap<String, Set<String>> expectedMap = new HashMap<>();
+
+        expectedMap.put("26_horspool_2", Set.of("26_len_3", "26_generateBadCharTable_5", "26_bc_table.get_14"));
+        expectedMap.put("26_generateBadCharTable_19", Set.of("26_len_20", "26_dict_21", "26_range_23"));
+        assertEquals(func2CalledFuncs, expectedMap);
+    }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    void testCalledFuncOnXMLAll() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
+        for (int i = 0; i < xmlFileTot; i++) {
+            engine.processXMLParsing(String.valueOf(i));
+        }
+
+        HashMap<String, Set<String>> func2CalledFuncs = engine.calculateCalledFunc();
+        assertEquals(func2CalledFuncs.size(), 1126);
+
+        Set<String> mergedSet = new HashSet<>();
+        for (Set<String> set : func2CalledFuncs.values()) {
+            mergedSet.addAll(set);
+        }
+        assertEquals(mergedSet.size(), 2573);
+    }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    public void testProcessNodeFreq() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
+        for (int i = 0; i < xmlFileTot; i++) {
+            engine.processXMLParsing(String.valueOf(i));
+        }
+
+        assertEquals(engine.getId2ASTModules().size(), 837);
+        HashMap<String, Integer> funcName2NodeNum = engine.processNodeFreq();
+        assertEquals(funcName2NodeNum.size(), 1126);
+        assertEquals(Collections.max(funcName2NodeNum.values()), 15);
+        assertEquals(Collections.min(funcName2NodeNum.values()), 2);
+    }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    public void testSortHashMapByValue() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("A", 5);
+        map.put("B", 2);
+        map.put("C", 7);
+        map.put("D", 1);
+
+        // Call the sortHashMapByValue method
+        List<Map.Entry<String, Integer>> result = engine.sortHashMapByValue(map);
+
+        // Create an expected sorted list based on values
+        List<Map.Entry<String, Integer>> expected = new ArrayList<>(map.entrySet());
+        expected.sort(Map.Entry.comparingByValue());
+
+        // Assert that the result matches the expected sorted list
+        assertEquals(expected, result);
     }
 }

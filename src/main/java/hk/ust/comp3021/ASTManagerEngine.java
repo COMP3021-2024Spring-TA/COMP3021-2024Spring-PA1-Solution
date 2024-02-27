@@ -164,7 +164,7 @@ public class ASTManagerEngine {
             ASTModule module = id2ASTModules.get(key);
             for (FunctionDefStmt func : module.getAllFunctions()) {
                 if (func.getParamNum() >= paramN) {
-                    System.out.println(module.getASTID() + "_" + func.getName());
+                    System.out.println(module.getASTID() + "_" + func.getName() + "_" + func.getLineNo());
                 }
             }
         }
@@ -260,9 +260,9 @@ public class ASTManagerEngine {
             for (FunctionDefStmt func : module.getAllFunctions()) {
                 Set<String> calledFuncNames = new HashSet<String>();
                 for (CallExpr call : func.getAllCalledFunc()) {
-                    calledFuncNames.add(module.getASTID() + "_" + call.getCalledFuncName());
+                    calledFuncNames.add(module.getASTID() + "_" + call.getCalledFuncName() + "_" + call.getLineNo());
                 }
-                func2CalledFuncs.put(module.getASTID() + "_" + func.getName(), calledFuncNames);
+                func2CalledFuncs.put(module.getASTID() + "_" + func.getName() + "_" + func.getLineNo(), calledFuncNames);
             }
         }
         return func2CalledFuncs;
@@ -351,8 +351,14 @@ public class ASTManagerEngine {
         for (String key : id2ASTModules.keySet()) {
             ASTModule module = id2ASTModules.get(key);
             for (FunctionDefStmt func : module.getAllFunctions()) {
-                funcName2NodeNum.put(module.getASTID() + "_" + func.getName(), func.getChildren().size());
-
+                String uniqueFuncName = module.getASTID() + "_" + func.getName() + "_" + func.getLineNo();
+                if (!funcName2NodeNum.containsKey(uniqueFuncName)) {
+                    funcName2NodeNum.put(
+                            uniqueFuncName,
+                            func.getChildren().size());
+                } else {
+                    System.out.println("Found func with same name! " + uniqueFuncName);
+                }
             }
         }
         return funcName2NodeNum;
