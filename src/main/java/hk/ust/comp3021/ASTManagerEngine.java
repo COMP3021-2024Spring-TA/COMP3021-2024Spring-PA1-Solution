@@ -355,7 +355,7 @@ public class ASTManagerEngine {
                 if (!funcName2NodeNum.containsKey(uniqueFuncName)) {
                     funcName2NodeNum.put(
                             uniqueFuncName,
-                            func.getChildren().size());
+                            func.countChildren());
                 } else {
                     System.out.println("Found func with same name! " + uniqueFuncName);
                 }

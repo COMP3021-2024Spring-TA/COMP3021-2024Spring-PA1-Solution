@@ -295,4 +295,34 @@ public class ASTManagerEngineTest {
         // Assert that the result matches the expected sorted list
         assertEquals(expected, result);
     }
+
+    @Tag(TestKind.PUBLIC)
+    @Test
+    public void testBonusPrintByPos() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        engine.processXMLParsing("0");
+        StringBuilder stringBuilder = new StringBuilder("");
+        engine.getId2ASTModules().get("0").printByPos(stringBuilder);
+        String expectedOutput = "class Solution:\n" +
+                "    def bubbleSort(self, head: ListNode):\n" +
+                "        node_i = head\n" +
+                "        tail = None\n" +
+                "        \n" +
+                "        while node_i:\n" +
+                "            node_j = head\n" +
+                "            while node_j and node_j.next != tail:\n" +
+                "                if node_j.val > node_j.next.val:\n" +
+                "                    \n" +
+                "                    node_j.val, node_j.next.val = node_j.next.val, node_j.val\n" +
+                "                node_j = node_j.next\n" +
+                "            \n" +
+                "            tail = node_j\n" +
+                "            node_i = node_i.next\n" +
+                "            \n" +
+                "        return head\n" +
+                "\n" +
+                "    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n" +
+                "        return self.bubbleSort(head)";
+        assertEquals(expectedOutput, stringBuilder.toString());
+    }
 }
