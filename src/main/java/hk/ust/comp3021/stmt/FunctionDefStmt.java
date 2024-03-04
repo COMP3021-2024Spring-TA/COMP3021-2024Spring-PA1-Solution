@@ -105,7 +105,7 @@ public class FunctionDefStmt extends ASTStmt {
         str.append(")");
 
         if (returns != null) {
-            str.append(" -> ");
+            str.append(" ->");
             returns.printByPos(str);
         }
 

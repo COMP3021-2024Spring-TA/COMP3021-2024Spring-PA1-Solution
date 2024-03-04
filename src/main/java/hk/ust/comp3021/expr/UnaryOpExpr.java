@@ -37,8 +37,27 @@ public class UnaryOpExpr extends ASTExpr {
     @Override
     public void printByPos(StringBuilder str) {
         this.fillStartBlanks(str);
+        boolean write_parens = false;
+        if (this.operand instanceof BinOpExpr) {
+            ASTEnumOp nextOp = ((BinOpExpr) this.operand).getOp();
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                write_parens = true;
+            }
+        } else if (this.operand instanceof UnaryOpExpr) {
+            ASTEnumOp nextOp = ((UnaryOpExpr) this.operand).op;
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                write_parens = true;
+            }
+        } 
+        
         op.printByPos(str);
+        if (write_parens) {
+            str.append("(");
+        }
         operand.printByPos(str);
+        if (write_parens) {
+            str.append(")");
+        }
         this.fillEndBlanks(str);
     }
 }

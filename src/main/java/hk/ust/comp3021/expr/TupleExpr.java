@@ -20,7 +20,34 @@ public class TupleExpr extends ASTExpr {
 
     @Override
     public void printByPos(StringBuilder str) {
-
+        fillStartBlanks(str);
+        ASTElement nextEle = null;
+        boolean printLeft = false;
+        if (!elts.isEmpty()) {
+            nextEle = elts.get(0);
+        }
+        if (nextEle != null && nextEle.getColOffset() > countNowColOffset(str)) {
+            str.append("(");
+            printLeft = true;
+        }
+        if (elts.size() == 1) {
+            elts.get(0).printByPos(str);
+            str.append(",");
+        } else {
+            boolean write_comma = false;
+            for (ASTExpr elt : elts) {
+                if (write_comma) {
+                    str.append(",");
+                } else {
+                    write_comma = true;
+                }
+                elt.printByPos(str);
+            }
+        }
+        if (printLeft) {
+            str.append(")");
+        }
+        fillEndBlanks(str);
     }
 
     @Override

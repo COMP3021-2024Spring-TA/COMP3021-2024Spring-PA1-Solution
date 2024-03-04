@@ -43,7 +43,9 @@ public class AugAssignStmt extends ASTStmt {
     public void printByPos(StringBuilder str) {
         this.fillStartBlanks(str);
         target.printByPos(str);
+        str.append(" ");
         op.printByPos(str);
+        str.append("=");
         value.printByPos(str);
         this.fillEndBlanks(str);
     }

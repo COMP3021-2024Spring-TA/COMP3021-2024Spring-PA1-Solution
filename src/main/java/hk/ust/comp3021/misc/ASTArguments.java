@@ -45,7 +45,7 @@ public class ASTArguments extends ASTElement {
             str.append(this.arg);
 
             if (annotation != null) {
-                str.append(": ");
+                str.append(":");
                 annotation.printByPos(str);
             }
             this.fillEndBlanks(str);

@@ -47,7 +47,14 @@ public class CompareExpr extends ASTExpr {
 
     @Override
     public void printByPos(StringBuilder str) {
-
+        fillStartBlanks(str);
+        left.printByPos(str);
+        for (int i = 0; i < ops.size(); i++) {
+            str.append(" ");
+            ops.get(i).printByPos(str);
+            comparators.get(i).printByPos(str);
+        }
+        fillEndBlanks(str);
     }
 
 

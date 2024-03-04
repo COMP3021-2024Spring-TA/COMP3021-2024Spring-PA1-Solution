@@ -263,5 +263,70 @@ public class ASTEnumOp extends ASTElement {
                 break;
         }
     }
+    
+    public int getPrecedence() {
+        switch (this.op) {
+            case OP_And:
+                return 3;
+            case OP_Or:
+                return 2;
+            case OP_Add:
+                return 11;
+            case OP_Sub:
+                return 11;
+            case OP_Mult:
+                return 12;
+            case OP_MatMult:
+                return 12;
+            case OP_Div:
+                return 12;
+            case OP_Mod:
+                return 12;
+            case OP_Pow:
+                return 14;
+            case OP_LShift:
+                return 10;
+            case OP_RShift:
+                return 10;
+            case OP_BitOr:
+                return 7;
+            case OP_BitXor:
+                return 8;
+            case OP_BitAnd:
+                return 9;
+            case OP_FloorDiv:
+                return 12;
+            case OP_Invert:
+                return 13;
+            case OP_Not:
+                return 5;
+            case OP_UAdd:
+                return 13;
+            case OP_USub:
+                return 13;
+            case OP_Eq:
+                return 5;
+            case OP_NotEq:
+                return 5;
+            case OP_Lt:
+                return 5;
+            case OP_LtE:
+                return 5;
+            case OP_Gt:
+                return 5;
+            case OP_GtE:
+                return 5;
+            case OP_Is:
+                return 5;
+            case OP_IsNot:
+                return 5;
+            case OP_In:
+                return 5;
+            case OP_NotIn:
+                return 5;
+            default:
+                return -1;
+        }
+    }
 
 }

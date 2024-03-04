@@ -42,7 +42,7 @@ public class AssignStmt extends ASTStmt {
         this.fillStartBlanks(str);
         for (ASTExpr target: targets) {
             target.printByPos(str);
-            str.append(" = ");
+            str.append(" =");
         }
         value.printByPos(str);
         this.fillEndBlanks(str);

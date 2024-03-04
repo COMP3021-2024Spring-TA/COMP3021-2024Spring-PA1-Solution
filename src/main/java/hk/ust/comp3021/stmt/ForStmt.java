@@ -56,6 +56,21 @@ public class ForStmt extends ASTStmt {
 
     @Override
     public void printByPos(StringBuilder str) {
-
+        fillStartBlanks(str);
+        str.append("for");
+        target.printByPos(str);
+        str.append(" in");
+        iter.printByPos(str);
+        str.append(":");
+        for (ASTStmt bodyStmt : body) {
+            bodyStmt.printByPos(str);
+        }
+        if (!orelse.isEmpty()) {
+            str.append("else:");
+        }
+        for (ASTStmt elseStmt : orelse) {
+            elseStmt.printByPos(str);
+        }
+        fillEndBlanks(str);
     }
 }

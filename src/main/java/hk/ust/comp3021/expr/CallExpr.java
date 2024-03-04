@@ -96,6 +96,28 @@ public class CallExpr extends ASTExpr {
 
     @Override
     public void printByPos(StringBuilder str) {
+        fillStartBlanks(str);
+        func.printByPos(str);
+        str.append("(");
+        boolean write_comma = false;
+        for (ASTExpr arg: args) {
+            if (write_comma) {
+                str.append(",");
+            } else {
+                write_comma = true;
+            }
+            arg.printByPos(str);
+        }
+        for (ASTElement keyword: keywords) {
+            if (write_comma) {
+                str.append(",");
+            } else {
+                write_comma = true;
+            }
+            keyword.printByPos(str);
+        }
+        str.append(")");
+        fillEndBlanks(str);
     }
 
 }

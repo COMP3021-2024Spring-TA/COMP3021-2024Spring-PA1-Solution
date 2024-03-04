@@ -41,9 +41,46 @@ public class BinOpExpr extends ASTExpr {
     @Override
     public void printByPos(StringBuilder str) {
         this.fillStartBlanks(str);
+        boolean left_write_parens = false;
+        boolean right_write_parens = false;
+        if (this.left instanceof BinOpExpr) {
+            ASTEnumOp nextOp = ((BinOpExpr) this.left).op;
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                left_write_parens = true;
+            }
+        } else if (this.left instanceof UnaryOpExpr) {
+            ASTEnumOp nextOp = ((UnaryOpExpr) this.left).getOp();
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                left_write_parens = true;
+            }
+        }
+        if (this.right instanceof BinOpExpr) {
+            ASTEnumOp nextOp = ((BinOpExpr) this.right).op;
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                right_write_parens = true;
+            }
+        } else if (this.right instanceof UnaryOpExpr) {
+            ASTEnumOp nextOp = ((UnaryOpExpr) this.right).getOp();
+            if (op.getPrecedence() > nextOp.getPrecedence()) {
+                right_write_parens = true;
+            }
+        }
+        if (left_write_parens) {
+            str.append("(");
+        }
         this.left.printByPos(str);
+        if (left_write_parens) {
+            str.append(")");
+        }
+        str.append(" ");
         this.op.printByPos(str);
+        if (right_write_parens) {
+            str.append(" (");
+        }
         this.right.printByPos(str);
+        if (right_write_parens) {
+            str.append(")");
+        }
         this.fillEndBlanks(str);
     }
 
