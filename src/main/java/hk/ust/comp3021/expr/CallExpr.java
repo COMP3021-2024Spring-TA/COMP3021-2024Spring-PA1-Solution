@@ -47,6 +47,9 @@ public class CallExpr extends ASTExpr {
             } else if (curNode instanceof ConstantExpr) {
                 path = new ArrayList<>(curPath);
                 break;
+            } else if (curNode instanceof CallExpr) {
+                path = new ArrayList<>(curPath);
+                break;
             } else {
                 for (ASTElement childNode : curNode.getChildren()) {
                     ArrayList<ASTElement> newPath = new ArrayList<>(curPath);
@@ -60,13 +63,19 @@ public class CallExpr extends ASTExpr {
         }
         int i = path.size() - 1;
         String funcName = "";
+        boolean meetName = false;
         for (; i >= 0; i--) {
             if (path.get(i) instanceof NameExpr) {
                 NameExpr nameNode = (NameExpr) path.get(i);
                 funcName += nameNode.getId();
+                meetName = true;
             } else if (path.get(i) instanceof AttributeExpr) {
                 AttributeExpr attrNode = (AttributeExpr) path.get(i);
-                funcName += "." + attrNode.getAttr();
+                if (meetName) {
+                    funcName += "." + attrNode.getAttr();
+                } else {
+                    funcName += attrNode.getAttr();
+                }
             }
         }
         return funcName;

@@ -52,7 +52,7 @@ public class ASTManagerEngineTest {
                 "227_diagonalBinarySearch_2",
                 "227_rowBinarySearch_13",
                 "227_colBinarySearch_27");
-        assertEquals(expectedOutput, Set.of(printedOutput.trim().split("\n")));
+        assertEquals(expectedOutput, Set.of(printedOutput.trim().split("\\r?\\n")));
     }
 
     @Tag(TestKind.PUBLIC)
@@ -239,6 +239,23 @@ public class ASTManagerEngineTest {
         expectedMap.put("26_generateBadCharTable_19", Set.of("26_len_20", "26_dict_21", "26_range_23"));
         assertEquals(func2CalledFuncs, expectedMap);
     }
+
+    @Test
+    void testCalledFuncOnXML833() {
+        ASTManagerEngine engine = new ASTManagerEngine();
+        engine.processXMLParsing("833");
+
+        HashMap<String, Set<String>> func2CalledFuncs = engine.calculateCalledFunc();
+        HashMap<String, Set<String>> expectedMap = new HashMap<>();
+
+        expectedMap.put("833_printList_24", Set.of("833_print_27", "833_print_32", "833_print_34"));
+        expectedMap.put("833_push_17", Set.of("833_Node_19"));
+        expectedMap.put("833___init___4", Set.of("833___init___5", "833_super_5"));
+        expectedMap.put("833___init___12", Set.of("833___init___13", "833_super_13"));
+        expectedMap.put("833_printMiddle_36", Set.of("833_print_46", "833_print_48"));
+        assertEquals(func2CalledFuncs, expectedMap);
+    }
+
 
     @Tag(TestKind.PUBLIC)
     @Test
