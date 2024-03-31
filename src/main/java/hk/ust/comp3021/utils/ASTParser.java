@@ -3,6 +3,8 @@ package hk.ust.comp3021.utils;
 import java.io.*;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ASTParser {
@@ -139,14 +141,12 @@ public class ASTParser {
             endIndex = line.indexOf("/>");
         }
         String attributesString = line.substring(startIndex, endIndex);
-        String[] attributePairs = attributesString.split(" ");
-        for (String attributePair : attributePairs) {
-            String[] attribute = attributePair.split("=");
-            if (attribute.length == 2) {
-                String attributeName = attribute[0].trim();
-                String attributeValue = attribute[1].replaceAll("\"", "").trim();
-                node.getAttributes().put(attributeName, attributeValue);
-            }
+        Pattern pattern = Pattern.compile("\\s(.*?)=\"(.*?)\"");
+        Matcher matcher = pattern.matcher(attributesString);
+        while (matcher.find()) {
+            String key = matcher.group(1).trim();
+            String value = matcher.group(2);
+            node.getAttributes().put(key, value);
         }
     }
 

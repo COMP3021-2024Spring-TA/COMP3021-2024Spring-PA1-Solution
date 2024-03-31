@@ -1,6 +1,8 @@
 @file:Suppress("SpellCheckingInspection")
 
 import proguard.gradle.ProGuardTask
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     java
@@ -94,6 +96,7 @@ tasks {
             "junit.jupiter.execution.timeout.testable.method.default" to "2000 ms"
         )
 
+        testLogging.showStandardStreams = true
         jvmArgs("--enable-preview")
     }
 
