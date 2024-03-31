@@ -50,6 +50,9 @@ public class CallExpr extends ASTExpr {
             } else if (curNode instanceof CallExpr) {
                 path = new ArrayList<>(curPath);
                 break;
+            } else if (!(curNode instanceof AttributeExpr)) {
+                path = new ArrayList<>(curPath);
+                break;
             } else {
                 for (ASTElement childNode : curNode.getChildren()) {
                     ArrayList<ASTElement> newPath = new ArrayList<>(curPath);

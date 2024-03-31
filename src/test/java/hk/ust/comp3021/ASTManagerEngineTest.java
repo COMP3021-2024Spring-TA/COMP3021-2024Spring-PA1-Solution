@@ -273,7 +273,7 @@ public class ASTManagerEngineTest {
         for (Set<String> set : func2CalledFuncs.values()) {
             mergedSet.addAll(set);
         }
-        assertEquals(mergedSet.size(), 2573);
+        assertEquals(mergedSet.size(), 2570);
     }
 
     @Tag(TestKind.PUBLIC)
@@ -288,8 +288,8 @@ public class ASTManagerEngineTest {
         assertEquals(engine.getId2ASTModules().size(), 837);
         HashMap<String, Integer> funcName2NodeNum = engine.processNodeFreq();
         assertEquals(funcName2NodeNum.size(), 1126);
-        assertEquals(Collections.max(funcName2NodeNum.values()), 15);
-        assertEquals(Collections.min(funcName2NodeNum.values()), 2);
+        assertEquals(Collections.max(funcName2NodeNum.values()), 221);
+        assertEquals(Collections.min(funcName2NodeNum.values()), 6);
     }
 
     @Tag(TestKind.PUBLIC)
