@@ -1,8 +1,6 @@
 @file:Suppress("SpellCheckingInspection")
 
 import proguard.gradle.ProGuardTask
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     java
@@ -96,7 +94,6 @@ tasks {
             "junit.jupiter.execution.timeout.testable.method.default" to "2000 ms"
         )
 
-        testLogging.showStandardStreams = true
         jvmArgs("--enable-preview")
     }
 
@@ -126,4 +123,46 @@ tasks {
         useuniqueclassmembernames()
         optimizationpasses(5)
     }
+    
+    val hiddenTest by creating(Test::class) {
+        useJUnitPlatform {
+            includeTags("hidden")
+        }
+        testClassesDirs = sourceSets["test"].output.classesDirs
+        classpath = sourceSets["test"].runtimeClasspath
+
+        // Configure test logging
+        testLogging {
+            events("passed", "skipped", "failed")
+//            showStandardStreams = true
+//            exceptionFormat = TestExceptionFormat.FULL
+        }
+    }
+
+
+    val publicTest by creating(Test::class) {
+        useJUnitPlatform {
+            includeTags("public")
+        }
+        testClassesDirs = sourceSets["test"].output.classesDirs
+        classpath = sourceSets["test"].runtimeClasspath
+
+        // Configure test logging
+        testLogging {
+            events("passed", "skipped", "failed")
+//            showStandardStreams = true
+//            exceptionFormat = TestExceptionFormat.FULL
+        }
+    }
+    
+    
 }
+
+tasks.test {
+    // Conditionally disable the test task based on a project property
+    onlyIf {
+        !project.hasProperty("skipTests")
+    }
+}
+
+
