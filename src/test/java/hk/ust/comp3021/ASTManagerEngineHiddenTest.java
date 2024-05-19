@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class ASTManagerEngineHiddenTest {
@@ -17,7 +15,7 @@ public class ASTManagerEngineHiddenTest {
     /*
      * Print all functions with # arguments greater than user-specified N
      */
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     public void testPrintedInformationAllOn3() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -38,7 +36,7 @@ public class ASTManagerEngineHiddenTest {
         assertEquals(338, computedOutput.size());
     }
 
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     public void testPrintedInformationAllOn4() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -64,7 +62,7 @@ public class ASTManagerEngineHiddenTest {
      * Find the most commonly used operators in all ASTs
      */
 
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     void testCalculateOp2NumsOn100() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -108,7 +106,7 @@ public class ASTManagerEngineHiddenTest {
      * Print all function names and the functions invoked by each function
      */
 
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     void testCalledFuncOnXML26() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -122,6 +120,7 @@ public class ASTManagerEngineHiddenTest {
         assertEquals(func2CalledFuncs, expectedMap);
     }
 
+    @Tag(TestKind.HIDDEN)
     @Test
     void testCalledFuncOnXML833() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -139,7 +138,7 @@ public class ASTManagerEngineHiddenTest {
     }
 
 
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     void testCalledFuncOnXMLAll() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -161,11 +160,7 @@ public class ASTManagerEngineHiddenTest {
     /*
      * Given AST ID, count the number of all node types.
      */
-
-    /*
-     * Given AST ID, count the number of all node types.
-     */
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     void testTotCalculateNode400() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -216,7 +211,7 @@ public class ASTManagerEngineHiddenTest {
         expectedNode2Num.put("Break", 35);
 
         expectedNode2Num.put("Continue", 17);
-        
+
         expectedNode2Num.put("List", 201);
 
         expectedNode2Num.put("For", 335);
@@ -225,8 +220,8 @@ public class ASTManagerEngineHiddenTest {
         expectedNode2Num.put("UnaryOp", 297);
         assertEquals(expectedNode2Num, totNode2Num);
     }
-    
-    @Tag(TestKind.PUBLIC)
+
+    @Tag(TestKind.HIDDEN)
     @Test
     void testTotCalculateNode2Num() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -292,7 +287,7 @@ public class ASTManagerEngineHiddenTest {
     /*
      * Sort all functions based on # children nodes
      */
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     public void testProcessNodeFreq1() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -326,10 +321,10 @@ public class ASTManagerEngineHiddenTest {
                 .findFirst();
 
         assertEquals(mediumKey.get(), "341_next_6");
-        
+
     }
-    
-    @Tag(TestKind.PUBLIC)
+
+    @Tag(TestKind.HIDDEN)
     @Test
     public void testProcessNodeFreq2() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -351,11 +346,10 @@ public class ASTManagerEngineHiddenTest {
                 .stream()
                 .min(Map.Entry.comparingByValue())
                 .orElse(null);
-        
+
         double average = funcName2NodeNum.values().stream().mapToInt(Integer::intValue).average().orElse(0.0);
         assertEquals(average, 47.01065719360568);
         assertEquals(funcName2NodeNum.values().stream().mapToDouble(value -> Math.pow(value - average, 2)).sum(), 1095127.8721136767);
     }
-
-
+    
 }

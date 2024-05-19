@@ -53,7 +53,7 @@ public class ASTManagerEngineTest {
         ASTManagerEngine engine = new ASTManagerEngine();
         int xmlFileTot = engine.countXMLFiles(engine.getDefaultXMLFileDir());
         for (int i = 0; i < xmlFileTot; i++) {
-           engine.processXMLParsing(String.valueOf(i));
+            engine.processXMLParsing(String.valueOf(i));
         }
         HashMap<String, Integer> op2Num = engine.calculateOp2Nums();
         HashMap<String, Integer> expectedOp2Num = new HashMap<>();

@@ -11,7 +11,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class XMLParserHiddenTest {
-    
+
     public static Map<String, String> sortMapByKey(Map<String, String> map) {
         List<Map.Entry<String, String>> entryList = new ArrayList<>(map.entrySet());
 
@@ -98,6 +98,7 @@ public class XMLParserHiddenTest {
     private static String getIndentation(int level) {
         return "  ".repeat(Math.max(0, level));
     }
+
     public static double compareFileWithStringCommon(String filePath, String compareString) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             StringBuilder fileContent = new StringBuilder();
@@ -127,7 +128,7 @@ public class XMLParserHiddenTest {
         }
     }
 
-    @Tag(TestKind.PUBLIC)
+    @Tag(TestKind.HIDDEN)
     @Test
     void XMLParserTest() {
         ASTManagerEngine engine = new ASTManagerEngine();
@@ -138,12 +139,11 @@ public class XMLParserHiddenTest {
             parser.parse2XMLNode();
             StringBuilder builder = new StringBuilder();
             printTree(parser.getRootXMLNode(), 0, builder);
-            commonPart += compareFileWithStringCommon("resources/pythonxml/" 
-                            + "python_" + String.valueOf(i) + ".xml", builder.toString());
+            commonPart += compareFileWithStringCommon("resources/pythonxml/"
+                    + "python_" + String.valueOf(i) + ".xml", builder.toString());
         }
         System.out.println("XMLParser Common Part " + commonPart);
         assertEquals(837, commonPart);
 
     }
-
 }
